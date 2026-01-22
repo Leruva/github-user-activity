@@ -1,0 +1,21 @@
+{
+  "name": "github-user-activity",
+  "version": "1.0.0",
+  "description": "github user activity",
+  "homepage": "https://github.com/Leruva/github-user-activity#readme",
+  "bugs": {
+    "url": "https://github.com/Leruva/github-user-activity/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Leruva/github-user-activity.git"
+  },
+  "license": "MIT",
+  "author": "Ruva",
+  "type": "commonjs",
+  "main": "index.js",
+  "bin":{"github-activity": "./index.js"},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

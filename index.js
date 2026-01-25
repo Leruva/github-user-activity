@@ -1,6 +1,17 @@
 #!/usr/bin/env node
+const { readCache, writeCacheFile, clearCache } = require("./cache");
 
-const username = process.argv[2];
+const args = process.argv.slice(2);
+const username = args[0];
+if(args.includes("--clear-cache")) {
+    const cleared = clearCache();
+    if(cleared) {
+        console.log("Cleared");
+    }else{
+        console.log("No cache found");
+    }
+    process.exit(0);
+}
 const url = `https://api.github.com/users/${username}/events`;
 if (!username){
     console.log("Usage : node test.js <username>");
@@ -48,20 +59,34 @@ function formatEvent(event){
 async function fetchdata() {
     try{
         const res = await fetch(url,options);
-        const data = await res.json();
+        
         if(res.status == 404) {
             console.log("User Not Found: ", username);
             return;
         }
         
         if(!res.ok) {
+            const text = await res.text();
             console.log(`Api error : ${res.status}`);
+            console.log(text);
             return;
         }
-        for(const event of data){
-            //console.log(JSON.stringify(event, null, 2));
+        const data = await res.json();
+        const cachedData = readCache(username);
+        if(cachedData){
+            console.log("Using cached data");
 
-            console.log(formatEvent(event));
+            for(const event of cachedData){
+                console.log(formatEvent(event));
+            }
+            return;
+        }else{
+            console.log("Fetching new data from API");
+            writeCacheFile(username, data);
+            for(const event of data){
+
+                console.log(formatEvent(event));
+            }     
         }
     }catch(err){
         console.log(err);

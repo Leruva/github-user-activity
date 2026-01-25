@@ -1,18 +1,8 @@
 # Github User Activity
-A simple command line interface (CLI) to fetch the recent activity of a GitHub user and display it in the terminal.
-## How to run
+A simple command-line tool that fetches and displays the recent public activity of a GitHub user using the GitHub Events API.
 
-```bash
-// Clone the repository
-
-git clone https://github.com/Leruva/github-user-activity.git
-cd github-user-activity
-
-// Install the cli bin
-
-npm install . -g
-
-// Run the cli
-
-github-activity <username>
-```
+## Features
+- Fetch recent public activity for any GitHub username
+- Displays readable activity lines (Push, Pull Request, Issues, Stars, etc.)
+- File-based caching to reduce API calls
+- Clear cache command
